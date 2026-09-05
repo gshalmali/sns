@@ -194,19 +194,6 @@ optimizeButton.addEventListener("click", function () {
     }
 
 
-    /*
-        IMPORTANT:
-
-        The frontend does NOT calculate the
-        portfolio optimization.
-
-        The Python backend will do that.
-
-        This section is currently only a
-        placeholder until the API is connected.
-    */
-
-
     // Summary
     document.getElementById("summaryCapital")
         .textContent =
@@ -310,22 +297,6 @@ optimizeButton.addEventListener("click", function () {
         "The optimization and risk engines will provide " +
         "the decision once the backend connection is added.";
 
-
-    /*
-        Later, this exact location will contain
-        the API request.
-
-        Example:
-
-        fetch("/analyze", {
-            method: "POST",
-            ...
-        });
-
-        We are deliberately NOT adding that yet.
-    */
-
-
     console.log("Portfolio input captured:", portfolio);
 
 });
@@ -366,16 +337,6 @@ simulateButton.addEventListener("click", function () {
         return;
 
     }
-
-
-    /*
-        The frontend records the scenario,
-        but does NOT decide whether it is
-        dangerous.
-
-        That decision will eventually come
-        from the risk/security backend.
-    */
 
 
     document.getElementById("scenarioResult")
