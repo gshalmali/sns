@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Capital Optimizer</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="dashboard-header">
+
+        <div>
+            <h1>Capital Optimizer</h1>
+            <p>Asset & Capital Management Dashboard</p>
+        </div>
+
+    </header>
+
+
+    <main class="dashboard">
+
+
+        <!-- PORTFOLIO SUMMARY -->
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+                <span>Total Capital</span>
+                <strong id="summaryCapital">—</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Expected Return</span>
+                <strong id="summaryReturn">—</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Risk Level</span>
+                <strong id="summaryRisk">—</strong>
+            </div>
+
+            <div class="summary-card">
+                <span>Liquidity</span>
+                <strong id="summaryLiquidity">—</strong>
+            </div>
+
+        </section>
+
+
+
+        <!-- PORTFOLIO INPUTS -->
+
+        <section class="card">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Portfolio Inputs</h2>
+                    <p>Enter your current portfolio information.</p>
+                </div>
+            </div>
+
+
+            <div class="input-group">
+
+                <label for="capital">Total Capital (₹)</label>
+
+                <input
+                    type="number"
+                    id="capital"
+                    placeholder="e.g. 1000000"
+                >
+
+            </div>
+
+
+            <h3>Asset Information</h3>
+
+
+            <div class="table-wrapper">
+
+                <table id="assetTable">
+
+                    <thead>
+
+                        <tr>
+                            <th>Asset</th>
+                            <th>Current Allocation (%)</th>
+                            <th>Expected Return (%)</th>
+                            <th>Volatility (%)</th>
+                            <th>Max Allocation (%)</th>
+                            <th>Liquidity</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>
+                                <input type="text" placeholder="e.g. Stocks">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="0-100">
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <input type="text" placeholder="e.g. Bonds">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="0-100">
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td>
+                                <input type="text" placeholder="e.g. Gold">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="%">
+                            </td>
+
+                            <td>
+                                <input type="number" placeholder="0-100">
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="addAssetButton"
+                class="secondary-button"
+            >
+                + Add Asset
+            </button>
+
+
+        </section>
+
+
+
+        <!-- RISK CONTROLS -->
+
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Risk Controls</h2>
+                    <p>Set the limits used to monitor portfolio risk.</p>
+                </div>
+
+            </div>
+
+
+            <div class="settings-grid">
+
+
+                <div class="input-group">
+
+                    <label for="shockThreshold">
+                        Price Shock Threshold (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="shockThreshold"
+                        placeholder="e.g. 10"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="minimumLiquidity">
+                        Minimum Liquidity
+                    </label>
+
+                    <input
+                        type="number"
+                        id="minimumLiquidity"
+                        placeholder="e.g. 20"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="rebalanceThreshold">
+                        Rebalancing Threshold (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="rebalanceThreshold"
+                        placeholder="e.g. 10"
+                    >
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="maximumTransactionCost">
+                        Maximum Transaction Cost (₹)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="maximumTransactionCost"
+                        placeholder="e.g. 5000"
+                    >
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- OPTIMIZE -->
+
+        <section class="action-section">
+
+            <button
+                id="optimizeButton"
+                class="primary-button"
+            >
+                Optimize Portfolio
+            </button>
+
+        </section>
+
+
+
+        <!-- OPTIMIZATION RESULTS -->
+
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Optimization Results</h2>
+                    <p>Recommended portfolio allocation and performance.</p>
+                </div>
+
+            </div>
+
+
+            <div class="metrics-grid">
+
+
+                <div class="metric-box">
+
+                    <span>Expected Return</span>
+
+                    <strong id="resultReturn">—</strong>
+
+                </div>
+
+
+                <div class="metric-box">
+
+                    <span>Portfolio Volatility</span>
+
+                    <strong id="resultVolatility">—</strong>
+
+                </div>
+
+
+                <div class="metric-box">
+
+                    <span>Sharpe Ratio</span>
+
+                    <strong id="resultSharpe">—</strong>
+
+                </div>
+
+
+                <div class="metric-box">
+
+                    <span>Liquidity Score</span>
+
+                    <strong id="resultLiquidity">—</strong>
+
+                </div>
+
+
+            </div>
+
+
+            <h3>Current vs Recommended Allocation</h3>
+
+
+            <div id="allocationResults">
+
+                <p class="empty-message">
+                    Optimize your portfolio to see recommendations.
+                </p>
+
+            </div>
+
+
+            <div class="transaction-box">
+
+                <span>Estimated Rebalancing Cost</span>
+
+                <strong id="resultCost">—</strong>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- RISK MONITOR -->
+
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Risk Monitor</h2>
+                    <p>Monitor portfolio health and active risk alerts.</p>
+                </div>
+
+                <div id="riskBadge" class="status-badge">
+                    NO DATA
+                </div>
+
+            </div>
+
+
+            <div class="risk-grid">
+
+
+                <div class="risk-box">
+
+                    <span>Overall Risk</span>
+
+                    <strong id="riskLevel">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="risk-box">
+
+                    <span>Portfolio Volatility</span>
+
+                    <strong id="riskVolatility">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="risk-box">
+
+                    <span>Liquidity</span>
+
+                    <strong id="riskLiquidity">
+                        —
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <h3>Active Alerts</h3>
+
+
+            <div id="riskAlerts">
+
+                <p class="empty-message">
+                    No risk analysis performed yet.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- SCENARIO SIMULATOR -->
+
+        <section class="card">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <h2>Market Shock Simulator</h2>
+
+                    <p>
+                        Test how the portfolio reacts to a hypothetical
+                        market movement.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="scenario-grid">
+
+
+                <div class="input-group">
+
+                    <label for="scenarioAsset">
+                        Select Asset
+                    </label>
+
+                    <select id="scenarioAsset">
+
+                        <option value="">
+                            Select an asset
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="input-group">
+
+                    <label for="scenarioMovement">
+                        Price Movement (%)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="scenarioMovement"
+                        placeholder="e.g. -15"
+                    >
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                id="simulateButton"
+                class="secondary-button"
+            >
+                Simulate Shock
+            </button>
+
+
+            <div id="scenarioResult">
+
+                <p class="empty-message">
+                    Run a scenario to see how the system responds.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- AUTOMATED DECISION -->
+
+        <section class="decision-card">
+
+            <div>
+
+                <h2>🛡 Automated Decision</h2>
+
+                <p class="decision-label">
+                    CURRENT ACTION
+                </p>
+
+                <strong id="decisionAction">
+                    —
+                </strong>
+
+            </div>
+
+
+            <div class="decision-details">
+
+                <div>
+
+                    <span>Capital Deployment</span>
+
+                    <strong id="capitalDeployment">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>Rebalancing</span>
+
+                    <strong id="decisionRebalance">
+                        —
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="decision-explanation">
+
+                <h3>Why?</h3>
+
+                <p id="explanation">
+                    The system will explain its decision here.
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
