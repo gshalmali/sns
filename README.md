@@ -1,1 +1,2 @@
-# sns
+# opti-invest
+This project is a portfolio optimization engine which helps to allocate capital among asssets using principals of Modern Portfolio Theory. It also has a risk alert system which allows the user to be aware of changes in the volatility of their investments. It has a smart rebalacing system as well which only takes effect when a certain threshold is crossed to ensure partial rebalancing is done without unnecessary transaction costs.
