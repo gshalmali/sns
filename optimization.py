@@ -302,7 +302,7 @@ def detect_volatility_shock(
 
 
 
-# 10. REBALANCING DETECTION
+# avoiding unnecessary transactions by setting a rebalance threshold
 
 
 def recommend_rebalancing(
@@ -311,15 +311,7 @@ def recommend_rebalancing(
     target_allocations,
     rebalance_threshold
 ):
-    """
-    Determines whether the portfolio has drifted enough
-    to justify rebalancing.
-
-    Small changes are ignored.
-
-    This helps prevent unnecessary transactions.
-    """
-
+    
     recommendations = []
 
     for i, asset in enumerate(assets):
@@ -369,7 +361,7 @@ def recommend_rebalancing(
 
 
 
-# 11. TRANSACTION COST CALCULATION
+#estimating cost of changing portfolio
 
 
 def calculate_transaction_cost(
@@ -378,16 +370,9 @@ def calculate_transaction_cost(
     total_capital,
     transaction_rate
 ):
-    """
-    Estimates the cost of changing the portfolio.
 
-    This is NOT an actual brokerage calculation.
-
-    It is a simplified simulation:
-
-        Transaction Cost =
-        Amount Traded × Transaction Rate
-    """
+        #Transaction Cost = Amount Traded × Transaction Rate
+   
 
     turnover = np.sum(
         np.abs(
@@ -410,7 +395,7 @@ def calculate_transaction_cost(
 
 
 
-# 12. COST-AWARE REBALANCING
+# cost aware rebalancing
 
 
 def create_cost_aware_rebalance(
@@ -420,17 +405,7 @@ def create_cost_aware_rebalance(
     transaction_rate,
     maximum_transaction_cost
 ):
-    """
-    Attempts to move the portfolio toward its optimized
-    allocation without exceeding the transaction-cost budget.
-
-    Important:
-
-        We do NOT force a trade.
-
-        If the optimized portfolio requires too much
-        turnover, only part of the adjustment is recommended.
-    """
+   
 
     full_cost = calculate_transaction_cost(
         current_allocations,
@@ -487,10 +462,8 @@ def create_cost_aware_rebalance(
     )
 
 
-# 13. COMPLETE PORTFOLIO ANALYSIS
-
-
-def analyze_portfolio(
+# full portfolio analysis
+    def analyze_portfolio(
     capital,
     assets,
     current_allocations,
