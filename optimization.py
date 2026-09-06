@@ -1,19 +1,13 @@
 import numpy as np
 from scipy.optimize import minimize 
 
-#creating covariance matrix to calculate risk of portfolio later
+#creating covariance matrix to calculate risk of portfolio later (acc. to MPT)
 
 def create_covariance_matrix(
     volatilities,
     correlations
 ):
-    """
-    Converts volatility + correlation into
-    a covariance matrix.
-
-    Covariance is required by Modern Portfolio Theory
-    to calculate total portfolio risk.
-    """
+   
 
     volatilities = np.array(
         volatilities,
@@ -49,22 +43,13 @@ def calculate_portfolio_return(
     )
 
 
-# ============================================================
-# 4. PORTFOLIO RISK
-# ============================================================
+#calculating portfolio variance using portfolio variance formula σp^2​=w^TΣw
 
 def calculate_portfolio_variance(
     weights,
     covariance_matrix
 ):
-    """
-    Calculates portfolio variance.
-
-    Formula:
-
-        wᵀΣw
-    """
-
+ 
     return np.dot(
         weights.T,
         np.dot(
@@ -72,16 +57,13 @@ def calculate_portfolio_variance(
             weights
         )
     )
-
+#square root of variance will give volatility
 
 def calculate_portfolio_volatility(
     weights,
     covariance_matrix
 ):
-    """
-    Calculates annualized portfolio volatility.
-    """
-
+    
     variance = calculate_portfolio_variance(
         weights,
         covariance_matrix
@@ -92,9 +74,7 @@ def calculate_portfolio_volatility(
     )
 
 
-# ============================================================
-# 5. SHARPE RATIO
-# ============================================================
+#using sharpe ration to figure out risk adjusted return
 
 def calculate_sharpe_ratio(
     weights,
@@ -102,12 +82,7 @@ def calculate_sharpe_ratio(
     covariance_matrix,
     risk_free_rate
 ):
-    """
-    Measures risk-adjusted return.
-
-    Higher Sharpe ratio generally means
-    better return relative to risk.
-    """
+   
 
     portfolio_return = calculate_portfolio_return(
         weights,
@@ -127,32 +102,20 @@ def calculate_sharpe_ratio(
     ) / portfolio_volatility
 
 
-# ============================================================
-# 6. LIQUIDITY
-# ============================================================
+#calculating weighted portfolio liquidity
 
 def calculate_liquidity(
     weights,
     liquidity_scores
 ):
-    """
-    Calculates weighted portfolio liquidity.
-
-    Liquidity score:
-
-        1.0 = highly liquid
-        0.0 = highly illiquid
-    """
-
+   
     return np.dot(
         weights,
         liquidity_scores
     )
 
 
-# ============================================================
-# 7. MPT OPTIMIZATION
-# ============================================================
+#using MPT optimization to find lowest risk portfolio while satisfying other requirements
 
 def optimize_portfolio(
     expected_returns,
@@ -162,18 +125,7 @@ def optimize_portfolio(
     minimum_return,
     minimum_liquidity
 ):
-    """
-    Finds the lowest-risk portfolio while satisfying:
-
-    - 100% capital allocation
-    - Minimum expected return
-    - Minimum liquidity
-    - Maximum allocation per asset
-    - No short selling
-
-    This is the core Modern Portfolio Theory engine.
-    """
-
+   
     number_of_assets = len(
         expected_returns
     )
@@ -184,13 +136,10 @@ def optimize_portfolio(
         / number_of_assets
     )
 
-    # --------------------------------------------------------
-    # OBJECTIVE
-    # --------------------------------------------------------
+  #minimizing portfolio risk
 
     def objective(weights):
 
-        # Minimize portfolio variance.
         return calculate_portfolio_variance(
             weights,
             covariance_matrix
