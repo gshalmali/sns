@@ -1,29 +1,7 @@
 import numpy as np
-from scipy.optimize import minimize
+from scipy.optimize import minimize 
 
-
-# ============================================================
-# 1. INPUT VALIDATION
-# ============================================================
-
-def validate_inputs(
-    assets,
-    current_allocations,
-    expected_returns,
-    volatilities,
-    correlations,
-    max_allocations,
-    liquidity_scores
-):
-  
-
-    
-
-    
-
-# ============================================================
-# 2. CREATE COVARIANCE MATRIX
-# ============================================================
+#creating covariance matrix to calculate risk of portfolio later
 
 def create_covariance_matrix(
     volatilities,
@@ -58,21 +36,12 @@ def create_covariance_matrix(
     return covariance_matrix
 
 
-# ============================================================
-# 3. PORTFOLIO RETURN
-# ============================================================
+#using weighted average return formula to find portfolio return: Σ(weight × asset return)
 
 def calculate_portfolio_return(
     weights,
     expected_returns
 ):
-    """
-    Calculates expected portfolio return.
-
-    Formula:
-
-        Portfolio Return = Σ(weight × asset return)
-    """
 
     return np.dot(
         weights,
