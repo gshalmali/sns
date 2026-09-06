@@ -146,12 +146,12 @@ def optimize_portfolio(
         )
 
   
-    # CONSTRAINTS
+    #taking care of constraints
 
 
     constraints = [
 
-        # Total allocation = 100%
+        # Total allocation should be 100%
         {
             "type": "eq",
 
@@ -182,7 +182,7 @@ def optimize_portfolio(
         }
     ]
 
-    # ASSET LIMITS
+    # asset limits
     
 
     bounds = [
@@ -194,7 +194,7 @@ def optimize_portfolio(
         for i in range(number_of_assets)
     ]
 
-    # OPTIMIZE
+    #optimizing
 
 
     result = minimize(
@@ -216,19 +216,14 @@ def optimize_portfolio(
 
 
 
-# 8. VOLATILITY MONITOR
+#volatility monitor to label risk - can be changed
 
 
 def monitor_volatility(
     assets,
     volatilities
 ):
-    """
-    Classifies each asset according to its volatility.
-
-    These thresholds can be changed depending on
-    the institution's risk policy.
-    """
+   
 
     results = []
 
@@ -271,7 +266,7 @@ def monitor_volatility(
 
 
 
-# 9. DYNAMIC VOLATILITY SHOCK DETECTION
+#dynamic volatility shock detection - to check if asset's current volatility is different from its normal volatility
 
 
 def detect_volatility_shock(
@@ -279,20 +274,7 @@ def detect_volatility_shock(
     current_volatilities,
     shock_multiplier=1.5
 ):
-    """
-    Detects when an asset's current volatility has
-    increased significantly compared with its normal level.
-
-    Example:
-
-        Normal volatility = 10%
-        Current volatility = 16%
-
-        16 / 10 = 1.6
-
-        Since 1.6 > 1.5,
-        a volatility shock is detected.
-    """
+  
 
     shocks = []
 
